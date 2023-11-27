@@ -1,5 +1,6 @@
 import Entrada from "../entradas/entrada";
 import { TipoDocumento } from "../enumeracoes/tipoDocumento";
+import ClonarEndereco from "../funções/clonarEndereco";
 import ClonarTelefone from "../funções/clonarTelefones";
 import Cliente from "../modelos/cliente";
 import Documento from "../modelos/documento";
@@ -10,6 +11,7 @@ export default class CadastroDependentes extends Cadastro{
     cadastrar(titular:Cliente):Cliente[] {
         let entrada = new Entrada
         let clonarTelefone = new ClonarTelefone
+        let clonarEndereco = new ClonarEndereco
         let documento = new Documento
         let listaDocumento: Documento[] = []
         let dependentes:Cliente[] = []
@@ -51,7 +53,7 @@ export default class CadastroDependentes extends Cadastro{
                     if (escolha == "nao" || escolha == "n") {break}
                 }
                 dependenteCadastrando.documentos = listaDocumento
-                dependenteCadastrando.endereco = titular.endereco.clonar()
+                dependenteCadastrando.endereco = clonarEndereco.clonar(titular)
                 dependenteCadastrando.telefones = clonarTelefone.clonar(titular)
                 dependenteCadastrando.titular = titular
                 dependentes.push(dependenteCadastrando)
