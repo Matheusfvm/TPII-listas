@@ -9,23 +9,17 @@ export default class CadastroClienteDependente extends Processo {
     private clienteTitular!: Cliente
     public constructor () {
         super()
+        this.execucao = true
     }
     processar(): void {
         let armazem = Armazem.InstanciaUnica
         let ultimoId = armazem.Id + 1
-        let chave = true
         let clonarTelefones = new ClonarTelefone
 
         console.log('Iniciando o cadastro de um novo dependente...')
         let idTitular = this.entrada.receberNumero('Id do cliente titular?')
-        let nome = this.entrada.receberTexto('Qual o nome do novo dependente?')
-        let nomeSocial = this.entrada.receberTexto('Qual o nome social do novo dependente?')
-        let dataNascimento = this.entrada.receberData('Qual a data de nascimento?')
-        let dataCadastro = this.entrada.receberData('Qual a data de cadastro?')
-        
-        let clienteDependente = new Cliente(ultimoId, nome, nomeSocial, dataNascimento, dataCadastro)
-        
-        while (chave) {
+               
+        while (this.execucao) {
             armazem.Clientes.forEach(cliente => {
                 if (cliente.Id == idTitular && cliente.Titular == null) {
                     this.clienteTitular = cliente
@@ -34,8 +28,15 @@ export default class CadastroClienteDependente extends Processo {
             if (this.clienteTitular == null) {
                 console.log('Nenhum cliente titular encontrado!')
                 idTitular = this.entrada.receberNumero('Id do cliente titular?')
-            } else { chave = false }
+            } else { this.execucao = false }
         }
+
+        let nome = this.entrada.receberTexto('Qual o nome do novo dependente?')
+        let nomeSocial = this.entrada.receberTexto('Qual o nome social do novo dependente?')
+        let dataNascimento = this.entrada.receberData('Qual a data de nascimento?')
+        let dataCadastro = this.entrada.receberData('Qual a data de cadastro?')
+        
+        let clienteDependente = new Cliente(ultimoId, nome, nomeSocial, dataNascimento, dataCadastro)
 
         this.processo = new CadastrarDocumentosCliente(clienteDependente)
         this.processo.processar()

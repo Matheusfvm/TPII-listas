@@ -1,6 +1,9 @@
+import { DEFAULT_ECDH_CURVE } from "tls";
 import Processo from "../../abstracoes/processo";
+import { TipoDocumento } from "../../enumeracoes/TipoDocumento";
 import MenuTipoDocumento from "../../menus/menuTipoDocumento";
 import Cliente from "../../modelos/cliente";
+import Documento from "../../modelos/documento";
 import CadastroCpf from "./cadastroCpf";
 import CadastroPassaporte from "./cadastroPassaporte";
 import CadastroRg from "./cadastroRg";
@@ -19,25 +22,63 @@ export default class CadastrarDocumentosCliente extends Processo {
         while (this.execucao) {
             this.menu.mostrar()
             this.opcao = this.entrada.receberNumero('Qual opção desejada?')
-            switch (this.opcao) {
-                case 1:
-                    this.processo = new CadastroCpf(this.cliente)
-                    this.processo.processar()
-                    break
-                case 2:
-                    this.processo = new CadastroRg(this.cliente)
-                    this.processo.processar()
-                    break
-                case 3:
-                    this.processo = new CadastroPassaporte(this.cliente)
-                    this.processo.processar()
-                    break
-                case 0:
-                    this.execucao = false
-                    break
-                default:
-                    console.log('Opção não entendida :(')
-            }
+            this.cliente.Documentos.forEach(documento => {
+                if (documento.Tipo == TipoDocumento.CPF) {
+                    console.log('Esse cliente já possui um CPF!')
+                    switch (this.opcao) {
+                        case 2:
+                            this.processo = new CadastroRg(this.cliente)
+                            this.processo.processar()
+                            break;
+                        case 3:
+                            this.processo = new CadastroPassaporte(this.cliente)
+                            this.processo.processar()
+                            break;
+                        case 0:
+                            this.execucao = false
+                            break
+                        default:
+                            console.log('Opção não entendida :(')
+                    }
+                } else if (documento.Tipo == TipoDocumento.Passaporte) {
+                    console.log('Esse cliente já possui um Passapporte!')
+                    switch (this.opcao) {
+                        case 1:
+                            this.processo = new CadastroCpf(this.cliente)
+                            this.processo.processar()
+                            break;
+                        case 2:
+                            this.processo = new CadastroRg(this.cliente)
+                            this.processo.processar()
+                            break;
+                        case 0:
+                            this.execucao = false
+                            break
+                        default:
+                            console.log('Opção não entendida :(')
+                    }
+                } else {
+                    switch (this.opcao) {
+                        case 1:
+                            this.processo = new CadastroCpf(this.cliente)
+                            this.processo.processar()
+                            break
+                        case 2:
+                            this.processo = new CadastroRg(this.cliente)
+                            this.processo.processar()
+                            break
+                        case 3:
+                            this.processo = new CadastroPassaporte(this.cliente)
+                            this.processo.processar()
+                            break
+                        case 0:
+                            this.execucao = false
+                            break
+                        default:
+                            console.log('Opção não entendida :(')
+                    }
+                }               
+            })
         }
     }
 }

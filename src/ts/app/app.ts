@@ -1,5 +1,5 @@
 import Processo from "../abstracoes/processo";
-import Principal from "../processos/listagem/principal";
+import Principal from "../processos/principal";
 
 
 console.clear()
