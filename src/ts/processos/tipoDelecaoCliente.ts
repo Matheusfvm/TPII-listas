@@ -1,6 +1,6 @@
 import Processo from "../abstracoes/processo"
 import MenuTipoDelecaoCliente from "../menus/menuTipoDelecaoCliente"
-import DelecaoClienteTitular from "./delecao/delecaoClienteTitular"
+import DelecaoCliente from "./delecao/delecaoCliente"
 
 export default class TipoDelecaoClientes extends Processo {
     constructor(){
@@ -13,11 +13,13 @@ export default class TipoDelecaoClientes extends Processo {
         this.opcao = this.entrada.receberNumero('Qual opção desejada?')        
         switch (this.opcao) {
             case 1:
-                this.processo = new DelecaoClienteTitular()
+                this.processo = new DelecaoCliente()
                 this.processo.processar()
-                break
+                break;
             case 2:
-                break            
+                this.processo = new DelecaoCliente()
+                this.processo.processar()
+                break;           
             default:
                 console.log('Opção não entendida :(')
         }
