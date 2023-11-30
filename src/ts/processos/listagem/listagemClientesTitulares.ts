@@ -10,6 +10,7 @@ export default class listagemClientesTitulares extends Processo {
     constructor() {
         super()
         this.clientes = Armazem.InstanciaUnica.Clientes
+        this.execucao = true
     }
     processar(): void {
         console.clear()

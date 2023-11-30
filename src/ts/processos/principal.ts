@@ -1,6 +1,5 @@
 import Processo from "../abstracoes/processo"
 import MenuPrincipal from "../menus/menuPricipal"
-import MenuTipoDelecaoCliente from "../menus/menuTipoDelecaoCliente"
 import TipoAtualizacaoCliente from "./tipoAtualizacaoCliente"
 import TipoCadastroCliente from "./tipoCadastroCliente"
 import TipoDelecaoClientes from "./tipoDelecaoCliente"
@@ -31,11 +30,12 @@ export default class Principal extends Processo {
             case 4:
                 this.processo = new TipoDelecaoClientes()
                 this.processo.processar()
+                break;
             case 0:
                 this.execucao = false
                 console.log('Até logo!')
                 console.clear()
-                break
+                break;
             default:
                 console.log('Opção não entendida :(')
         }

@@ -11,17 +11,27 @@ export default class ListagemClienteTitularDoDependente extends Processo {
     constructor() {
         super()
         this.listaClientes = Armazem.InstanciaUnica.Clientes
+        this.execucao = true
     }
     processar(): void {
         console.clear()
         let id = this.entrada.receberNumero('Id do cliente dependente?')
-        console.log('Iniciando a listagem do titular desse dependente...')
-        this.listaClientes.forEach(clienteDependente => {
-            if (clienteDependente.Id == id) {
-                this.clienteDependenteEscolhido = clienteDependente
-            }           
-        });
-        this.impressor = new ImpressaorCliente(this.clienteDependenteEscolhido.Titular)
-        console.log(this.impressor.imprimir())
+        while (this.execucao) {
+            this.listaClientes.forEach(cliente => {
+                if (cliente.Id == id && cliente.Titular != null) {
+                    this.clienteDependenteEscolhido = cliente
+                }
+            })
+            if (this.clienteDependenteEscolhido == null) {
+                console.log('Nenhum cliente dependente encontrado!')
+                this.execucao = false
+            } else {
+                console.log('Iniciando a listagem do titular desse dependente...')
+                this.impressor = new ImpressaorCliente(this.clienteDependenteEscolhido.Titular)
+                console.log(this.impressor.imprimir())
+                this.execucao = false               
+            }
+             
+        }
     }
 }

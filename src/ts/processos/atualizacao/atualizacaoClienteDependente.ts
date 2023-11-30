@@ -25,16 +25,17 @@ export default class AtualizacaoClienteDependente extends Processo {
             })
             if (this.clienteDependente == null) {
                 console.log('Nenhum cliente dependente encontrado!')
-                idCliente = this.entrada.receberNumero('Id do cliente dependente?')
-            } else { this.execucao = false }
+                this.execucao = false
+            } else {
+                this.clienteDependente.setNome = this.entrada.receberTexto('Novo nome?')
+                this.clienteDependente.setNomeSocial = this.entrada.receberTexto('Novo nome social?')
+
+                this.processo = new CadastrarDocumentosCliente(this.clienteDependente)
+                this.processo.processar()
+
+                console.log('Finalizando a atualização do cliente dependente...')
+                this.execucao = false 
+            }
         }
-
-        this.clienteDependente.setNome = this.entrada.receberTexto('Novo nome?')
-        this.clienteDependente.setNomeSocial = this.entrada.receberTexto('Novo nome social?')
-
-        this.processo = new CadastrarDocumentosCliente(this.clienteDependente)
-        this.processo.processar()
-
-        console.log('Finalizando a atualização do cliente dependente...')
     }
 }

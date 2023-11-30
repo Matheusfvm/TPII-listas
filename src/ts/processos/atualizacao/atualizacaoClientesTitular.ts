@@ -27,27 +27,30 @@ export default class AtualizacaoClienteTitular extends Processo {
             })
             if (this.clienteTitular == null) {
                 console.log('Nenhum cliente titular encontrado!')
-                idCliente = this.entrada.receberNumero('Id do cliente titular?')
-            } else { this.execucao = false }
+                this.execucao = false
+            } else {
+                this.clienteTitular.setNome = this.entrada.receberTexto('Novo nome?')
+                this.clienteTitular.setNomeSocial = this.entrada.receberTexto('Novo nome social?')
+        
+                this.processo = new CadastrarDocumentosCliente(this.clienteTitular)
+                this.processo.processar()
+
+                this.processo = new CadastroEnderecoTitular(this.clienteTitular)
+                this.processo.processar()
+
+                this.processo = new CadastroTelefoneTitular(this.clienteTitular)
+                this.processo.processar()
+
+                this.clienteTitular.Dependentes.forEach(dependente => {
+                    dependente.setEndereco = this.clienteTitular.Endereco.clonar()
+                    dependente.setTelefones = clonarTelefone.clonar(this.clienteTitular)
+                })
+
+                console.log('Finalizando a atualização do cliente titular...')
+                this.execucao = false
+            }
         }
 
-        this.clienteTitular.setNome = this.entrada.receberTexto('Novo nome?')
-        this.clienteTitular.setNomeSocial = this.entrada.receberTexto('Novo nome social?')
         
-        this.processo = new CadastrarDocumentosCliente(this.clienteTitular)
-        this.processo.processar()
-
-        this.processo = new CadastroEnderecoTitular(this.clienteTitular)
-        this.processo.processar()
-
-        this.processo = new CadastroTelefoneTitular(this.clienteTitular)
-        this.processo.processar()
-
-        this.clienteTitular.Dependentes.forEach(dependente => {
-            dependente.setEndereco = this.clienteTitular.Endereco.clonar()
-            dependente.setTelefones = clonarTelefone.clonar(this.clienteTitular)
-        })
-
-        console.log('Finalizando a atualização do cliente titular...')
     }
 }

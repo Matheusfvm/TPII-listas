@@ -4,7 +4,7 @@ import ListagemClienteTitularDoDependente from "./listagem/listagemClienteTitula
 import ListagemClienteUnico from "./listagem/listagemClienteUnico"
 import ListagemClientesDependentes from "./listagem/listagemClientesDependentes"
 import listagemClientesTitulares from "./listagem/listagemClientesTitulares"
-import ListagemClienteDependentesDoTitular from "./listagem/listagemDependestesDoTitular"
+import ListagemClientesDependentesDoTitular from "./listagem/listagemClientesDependestesDoTitular"
 
 export default class TipoListagemClientes extends Processo {
     constructor(){
@@ -25,7 +25,7 @@ export default class TipoListagemClientes extends Processo {
                 this.processo.processar()
                 break;
             case 3:
-                this.processo = new ListagemClienteDependentesDoTitular()
+                this.processo = new ListagemClientesDependentesDoTitular()
                 this.processo.processar()
                 break
             case 4:

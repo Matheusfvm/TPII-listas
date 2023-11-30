@@ -22,63 +22,25 @@ export default class CadastrarDocumentosCliente extends Processo {
         while (this.execucao) {
             this.menu.mostrar()
             this.opcao = this.entrada.receberNumero('Qual opção desejada?')
-            this.cliente.Documentos.forEach(documento => {
-                if (documento.Tipo == TipoDocumento.CPF) {
-                    console.log('Esse cliente já possui um CPF!')
-                    switch (this.opcao) {
-                        case 2:
-                            this.processo = new CadastroRg(this.cliente)
-                            this.processo.processar()
-                            break;
-                        case 3:
-                            this.processo = new CadastroPassaporte(this.cliente)
-                            this.processo.processar()
-                            break;
-                        case 0:
-                            this.execucao = false
-                            break
-                        default:
-                            console.log('Opção não entendida :(')
-                    }
-                } else if (documento.Tipo == TipoDocumento.Passaporte) {
-                    console.log('Esse cliente já possui um Passapporte!')
-                    switch (this.opcao) {
-                        case 1:
-                            this.processo = new CadastroCpf(this.cliente)
-                            this.processo.processar()
-                            break;
-                        case 2:
-                            this.processo = new CadastroRg(this.cliente)
-                            this.processo.processar()
-                            break;
-                        case 0:
-                            this.execucao = false
-                            break
-                        default:
-                            console.log('Opção não entendida :(')
-                    }
-                } else {
-                    switch (this.opcao) {
-                        case 1:
-                            this.processo = new CadastroCpf(this.cliente)
-                            this.processo.processar()
-                            break
-                        case 2:
-                            this.processo = new CadastroRg(this.cliente)
-                            this.processo.processar()
-                            break
-                        case 3:
-                            this.processo = new CadastroPassaporte(this.cliente)
-                            this.processo.processar()
-                            break
-                        case 0:
-                            this.execucao = false
-                            break
-                        default:
-                            console.log('Opção não entendida :(')
-                    }
-                }               
-            })
+            switch (this.opcao) {
+                case 1:
+                    this.processo = new CadastroCpf(this.cliente)
+                    this.processo.processar()
+                    break
+                case 2:
+                    this.processo = new CadastroRg(this.cliente)
+                    this.processo.processar()
+                    break
+                case 3:
+                    this.processo = new CadastroPassaporte(this.cliente)
+                    this.processo.processar()
+                    break
+                case 0:
+                    this.execucao = false
+                    break
+                default:
+                    console.log('Opção não entendida :(')
+            }
         }
     }
 }
