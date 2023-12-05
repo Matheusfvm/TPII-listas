@@ -1,3 +1,5 @@
+import { TipoHospedagem } from "../enumeracoes/TipoHospedagem"
+import Acomodacao from "./acomodacao"
 import Documento from "./documento"
 import Endereco from "./endereco"
 import Telefone from "./telefone"
@@ -13,6 +15,10 @@ export default class Cliente {
     private documentos: Documento[] = []
     private dependentes: Cliente[] = []
     private titular!: Cliente
+    private dataInicioHospedagem!: Date
+    private dataFinalHospedagem!: Date
+    private tipoHospedagem!: TipoHospedagem
+    private acomodacao!: Acomodacao
 
     constructor(id: number, nome: string, nomeSocial: string, dataNascimento: Date, dataCadastro: Date) {
         this.id = id
@@ -32,6 +38,10 @@ export default class Cliente {
     public get Documentos() { return this.documentos }
     public get Dependentes() { return this.dependentes }
     public get Titular() { return this.titular }
+    public get DataInicioHospedagem() { return this.dataInicioHospedagem}
+    public get DataFinalHospedagem() { return this.dataFinalHospedagem}
+    public get Acomodacao() { return this.acomodacao}
+    public get TipoHospedagem() { return this.tipoHospedagem}
 
     public set setNome(nome: string) { this.nome = nome }
     public set setNomeSocial(nomeSocial: string) { this.nomeSocial = nomeSocial }
@@ -40,5 +50,9 @@ export default class Cliente {
     public set setTitular(titular: Cliente) {this.titular = titular}
     public set setDependentes(dependente: Cliente) {this.dependentes.push(dependente)}
     public set setDocumentos(documento: Documento) {this.documentos.push(documento)}
-    public set setTelefones(telefone: Telefone[]) {this.telefones = telefone}    
+    public set setTelefones(telefone: Telefone[]) {this.telefones = telefone}
+    public set setDataInicioHospedagem(data: Date) {this.dataInicioHospedagem = data}
+    public set setDataFinalHospedagem(data: Date) {this.dataFinalHospedagem = data}
+    public set setAcomodacao(acomodacao: Acomodacao) {this.acomodacao = acomodacao}
+    public set setTipoHospedagem(hospedagem: TipoHospedagem) {this.tipoHospedagem = hospedagem}   
 }

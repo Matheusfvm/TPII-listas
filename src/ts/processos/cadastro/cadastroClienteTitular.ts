@@ -1,11 +1,15 @@
 import Processo from "../../abstracoes/processo";
 import Armazem from "../../dominio/armazem";
+import MenuTipoCadastroAcomodacao from "../../menus/menuTipoCadastroAcomodacao";
 import Cliente from "../../modelos/cliente";
 import CadastrarDocumentosCliente from "./cadastrarDocumentosCliente";
 import CadastroEnderecoTitular from "./cadastroEnderecoTitular";
 import CadastroTelefoneTitular from "./cadastroTelefoneTitular";
 
 export default class CadastroClienteTitular extends Processo {
+    constructor(){
+        super()
+    }
     processar(): void {
         let armazem = Armazem.InstanciaUnica
         console.log('Iniciando o cadastro de um novo cliente...')
@@ -25,7 +29,7 @@ export default class CadastroClienteTitular extends Processo {
 
         this.processo = new CadastroTelefoneTitular(cliente)
         this.processo.processar()
-        
+
         armazem.Clientes.push(cliente)
         armazem.setId =  ultimoId            
         console.log('Finalizando o cadastro do cliente...')

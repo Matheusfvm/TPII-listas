@@ -36,6 +36,10 @@ export default class Principal extends Processo {
                 this.processo = new ListagemAcomodacoes()
                 this.processo.processar()
                 break;
+            case 6:
+                break;
+            case 7:
+                break;
             case 0:
                 this.execucao = false
                 console.log('Até logo!')

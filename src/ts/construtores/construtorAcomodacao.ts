@@ -1,4 +1,5 @@
 import { NomeAcomadacao } from "../enumeracoes/NomeAcomadacao";
+import { TipoHospedagem } from "../enumeracoes/TipoHospedagem";
 import Construtor from "../interfaces/construtor";
 import Acomodacao from "../modelos/acomodacao";
 
